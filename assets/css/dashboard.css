@@ -1,0 +1,207 @@
+.pointer {
+  cursor: pointer;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.tl {
+  text-align: left;
+}
+.tr {
+  text-align: right;
+}
+.tc {
+  text-align: center;
+}
+.tn {
+  text-decoration: none;
+}
+.pos-a {
+  position: absolute;
+}
+.pos-r {
+  position: relative;
+}
+.cb {
+  clear: both;
+}
+.oh {
+  overflow: hidden;
+}
+.cboh {
+  clear: both;
+  overflow: hidden;
+}
+.fn {
+  font-weight: normal;
+}
+.db {
+  display: block;
+}
+.di {
+  display: inline;
+}
+.dib {
+  display: inline-block;
+}
+.dn {
+  display: none;
+}
+.invisible {
+  visible: none;
+}
+.break {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.u-icon {
+  float: left;
+  padding: 1px;
+  border: 1px solid #e4e4e4;
+  background-color: #ffffff;
+  margin-right: 10px;
+  width: 48px;
+  height: 48px;
+}
+.u-icon img {
+  width: 100%;
+}
+.u-name {
+  float: left;
+}
+.u-name div {
+  margin: 3px 0;
+}
+.widget-content tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+.widget-content table td {
+  vertical-align: middle;
+}
+.widget-content table th {
+  text-align: left;
+}
+.widget-content .green {
+  color: #006633;
+}
+.widget-content .red {
+  color: #cc0000;
+}
+.widget-content .num {
+  font-size: 18px;
+}
+.widget-content .num span.green,
+.widget-content .num span.red {
+  font-size: 12px;
+}
+.widget-content th.order {
+  cursor: pointer;
+}
+.widget-content .pagination {
+  padding: 15px 10px 10px;
+  border-top: 1px solid #dddddd;
+  margin: 0;
+}
+.widget-content .pagination li a {
+  line-height: 30px;
+}
+.pagination .input-mini {
+  margin-bottom: 0;
+  width: 24px;
+  text-align: center;
+}
+.drop-check li label {
+  padding: 0 0 0 7px;
+}
+#sidebar .accordion-group {
+  border-radius: 0;
+  border: none;
+}
+#sidebar .accordion-group a {
+  color: #37A439;
+}
+#sidebar .accordion-group .accordion-heading {
+  border-bottom: 1px solid #cccccc;
+}
+#sidebar .accordion-group .accordion-heading a {
+  padding-left: 50px;
+}
+#sidebar .accordion-group .accordion-inner {
+  padding: 0;
+  border-top: 0;
+}
+#sidebar .accordion-group .accordion-inner a {
+  padding: 10px 0 10px 60px;
+  display: block;
+}
+#sidebar .accordion-group .accordion-inner a:hover {
+  color: #37a439;
+  background-color: #f7f7f7;
+}
+#sidebar .accordion-group .accordion-inner div {
+  border-bottom: 1px solid #ccc;
+}
+#sidebar .active a {
+  color: #333;
+}
+#sidebar .active .accordion-heading a {
+  color: #333;
+  background-color: #f7f7f7;
+}
+.header-main .pull-right {
+  margin: 30px 0 0 20px;
+}
+.hot-bar {
+  width: 100px;
+  padding: 4px;
+  height: 8px;
+  position: relative;
+  background-color: #dddddd;
+}
+.hot-bar div {
+  height: 8px;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  background: url(../img/hot.png) -4px -4px no-repeat;
+}
+.weibo-list {
+  height: 272px;
+}
+.weibo-list dl.weibo-item {
+  padding: 15px;
+  margin: 0;
+  border-bottom: 1px dashed #cccccc;
+}
+.weibo-list dl.weibo-item::nth-child(last) {
+  border-bottom: none;
+}
+.weibo-list dl.weibo-item dt {
+  float: left;
+  width: 54;
+  height: 54px;
+  padding-top: 2px;
+}
+.weibo-list dl.weibo-item dt a {
+  display: block;
+  padding: 1px;
+  background-color: #ffffff;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #cccccc;
+}
+.weibo-list dl.weibo-item dt a img {
+  width: 100%;
+}
+.weibo-list dl.weibo-item dd {
+  margin-left: 65px;
+}
+.weibo-list dl.weibo-item dd .txt {
+  height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

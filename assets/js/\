@@ -1,0 +1,253 @@
+$ ->
+  table_opt = {
+    perpage: 20
+  }
+  $('[rel=tooltip]').tooltip()
+
+  dropcheck =  $('.drop-check label')
+  dropcheck.click (e)->
+    e.stopPropagation()
+
+  getInt = ->
+    int = parseInt(Math.random()*2000)
+    if int > 1000
+      int
+    else
+      int + 1000
+
+  date = new Date()
+  y = date.getFullYear()
+  m = date.getMonth()
+  d = date.getDate()
+  d = new Date(y, m, d)
+
+  dayT = 1000*60*60*24
+
+  generate = (i)->
+    {
+      name: 'name' + i
+      data: _.map [1..10], (i, k)->
+        y: getInt()
+        x: new Date( d.getTime() - k*dayT)
+    }
+
+  objs = _.map [1..5], (i, k)->
+    obj = generate(i)
+    obj.data = obj.data.reverse()
+    obj
+
+  chart_common_opt =
+    colors: ['#1C77C1', '#4BAA00', '#E04200', '#FEB800', '#00A3E8', '#714286', '#EA5503']
+    credits:
+      enabled: false
+    chart:
+      margin: [30, 30, 70, 60]
+    title:
+      text: ''
+    yAxis:
+      title:
+        text: ''
+
+  chart1_opt =
+    chart:
+      renderTo: 'chart1'
+      type: 'line'
+    plotOptions:
+      line:
+        lineWidth: 1
+        marker:
+          lineWidth: 2
+    yAxis:
+      max: 2000
+      min: 1000
+    xAxis:
+      type: 'datetime'
+    series: objs
+
+  $.extend true, chart1_opt, chart_common_opt
+
+  chart1 = new Highcharts.Chart(chart1_opt)
+  chart2_opt =
+    chart:
+      renderTo: 'chart2'
+      type: 'column'
+    legend:
+      enabled: false
+    xAxis:
+      categories: ['name1', 'name2', 'name3', 'name4', 'name5']
+      labels:
+        rotation: -45
+    series: [{
+          name: 'object1'
+          data: _.map [1..5], (i, k)->
+            parseInt(Math.random()*80) + 1000
+        }]
+
+
+  $.extend true, chart2_opt, chart_common_opt
+
+  chart2 = new Highcharts.Chart(chart2_opt)
+
+  chart3_opt =
+    chart:
+      renderTo: 'chart3'
+      type: 'bar'
+    xAxis:
+      categories: ['cate 1', 'cate 2', 'cate 3', 'cate 4', 'cate 5']
+    plotOptions:
+      series:
+        stacking: 'normal'
+    series: _.map([1..5], (i, k)->
+        {
+          name: 'name' + i
+          data: _.map [1..5], (j, l)->
+              parseInt(Math.random()*10 + 5)
+        }
+      )
+
+  $.extend true, chart3_opt, chart_common_opt
+
+  chart3 = new Highcharts.Chart(chart3_opt)
+
+  chart4_opt =
+    chart:
+      renderTo: 'chart4'
+      type: 'pie'
+    xAxis:
+      categories: ['cate 1', 'cate 2', 'cate 3', 'cate 4', 'cate 5']
+    plotOptions:
+      pie:
+        allowPointSelect: true
+        cursor: 'pointer'
+    series: [{
+        type: 'pie'
+        name: '曝光对比'
+        data: _.map [1..7], (i, k)->
+            if i is 1
+              { name: 'share' + i, y: parseInt(Math.random()*100), sliced: true, selected: true }
+            else
+              ['share' + i, parseInt(Math.random()*100)]
+      }]
+
+  $.extend true, chart4_opt, chart_common_opt
+
+  chart4 = new Highcharts.Chart(chart4_opt)
+
+  $('[name="custom_column"]').on 'change', (e)->
+    o = $ @
+    v = o.val()
+    checked = o.is(':checked')
+    col = o.closest('.widget-box').find('table [data-col=' + v + ']')
+    if checked
+      col.show()
+    else
+      col.hide()
+
+  generate_int = ->
+    parseInt(Math.random()*95) + 5
+
+  generate_percent = ->
+    if (Math.random() > 0.5)
+      '+11.3%'
+    else
+      '-12.3%'
+
+  account_data = _.map [1..500], (i, k)->
+    account_url: 'account_url' + i
+    account_icon: 'account_icon' + i
+    account_name: 'account_name' + i
+    funs: generate_int()
+    funs_compare: generate_percent()
+    funs_quality: generate_int()
+    funs_quality_compare: generate_percent()
+    posts: generate_int()
+    posts_compare: generate_percent()
+    forwards: generate_int()
+    forwards_compare: generate_percent()
+    imp: generate_int()
+    imp_compare: generate_percent()
+
+  setClass = (obj, itemName)->
+    if (obj[itemName + "_compare"]).match /-/
+      obj[itemName + "_cls"] = 'red'
+    else
+      obj[itemName + "_cls"] = 'green'
+
+  td_vars = ['forwards', 'funs', 'posts', 'imp']
+  tpl_tr = $('#tpl-account-tr').html()
+  table = $ '.widget-content table'
+  tbody = table.find 'tbody'
+
+  _.each account_data, (v, k)->
+    _.each td_vars, (i)->
+      setClass v, i
+
+  generate_trs = (arr)->
+    tbody.empty()
+    _.each arr, (v)->
+      str = _.template tpl_tr, v
+      tbody.append str
+
+  generate_trs account_data[1..5]
+
+  reorder = (arr, item, reversed)->
+    ordered = _.sortBy arr, (v)->
+      v[item]
+    ordered = ordered.reverse() if reversed
+    ordered
+
+
+  th = $ '.widget-content table .order'
+
+  set_up_down = (obj)->
+    obj.siblings('.order').find('i').removeClass()
+    i = obj.find('i')
+    if i.is('.icon-arrow-down')
+      console.log 'xx'
+      i.removeClass("icon-arrow-down")
+      i.addClass("icon-arrow-up")
+    else if i.is('.icon-arrow-up')
+      i.removeClass("icon-arrow-up")
+      i.addClass("icon-arrow-down")
+    else
+      i.addClass("icon-arrow-down")
+
+  th.toggle ->
+      item = $(@).data 'order'
+      x = reorder account_data, item, true
+      set_up_down $(@)
+      generate_trs x[1..5]
+    , ->
+      item = $(@).data 'order'
+      x = reorder account_data, item
+      set_up_down $(@)
+      generate_trs x[1..5]
+
+  tpl_pagination = $('#tpl-pagination').html()
+
+  init_pagination = (arr, tpl, table)->
+    return unless _.isArray(arr)
+    pages = Math.ceil(arr.length/20)
+    tpl = _.template tpl, {pages: pages}
+    if pages > 1
+      table.after tpl
+    $t = table.next('.pagination')
+    first = $t.find '.page-first'
+    prev = $t.find '.page-prev'
+    next = $t.find '.page-next'
+    total = $t.find '.page-total'
+    cur = $t.find '.input-mini'
+    last = $t.find '.page-last'
+    cur.keydown (e)->
+      c = e.keyCode
+      if c is 8 or c is 13 or (c >= 48 and c <=57)
+      else
+        return false
+    cur.keyup (e)->
+      o = $(@)
+      v = o.val()
+      o.val(1) if v < 1 or v > pages
+
+
+
+  init_pagination account_data, tpl_pagination, table
